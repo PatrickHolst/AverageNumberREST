@@ -3,15 +3,22 @@
     public class NumberList
     {
         private List<int> postedNumbers = new List<int>();
+        private readonly object lockObject = new object();
 
         public void AddNumber(int number)
         {
-            postedNumbers.Add(number);
+            lock (lockObject)
+            {
+                postedNumbers.Add(number);
+            }
         }
 
         public List<int> GetPostedNumbers()
         {
-            return postedNumbers;
+            lock (lockObject)
+            {
+                return new List<int>(postedNumbers);
+            }
         }
     }
 }
