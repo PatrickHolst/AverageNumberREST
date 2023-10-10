@@ -5,7 +5,10 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolvoREST", "VolvoREST.csproj", "{76A0AEE5-6F13-4EB3-8649-EA3B186045E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolvoTest", "..\VolvoTest\VolvoTest.csproj", "{0D09F13A-21A5-48B3-9578-8B6E98A0EFD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VolvoTest", "..\VolvoTest\VolvoTest.csproj", "{0D09F13A-21A5-48B3-9578-8B6E98A0EFD1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{76A0AEE5-6F13-4EB3-8649-EA3B186045E1} = {76A0AEE5-6F13-4EB3-8649-EA3B186045E1}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
