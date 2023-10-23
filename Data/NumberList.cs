@@ -2,22 +2,35 @@
 {
     public class NumberList
     {
-        private List<int> postedNumbers = new List<int>();
+        private readonly HashSet<int> postedNumbers = new HashSet<int>();
+        private double sum = 0;
+        private int count = 0;
         private readonly object lockObject = new object();
 
-        public void AddNumber(int number)
+        public bool AddNumber(int number)
         {
-            lock (lockObject)
+            lock ( lockObject)
             {
+                if(postedNumbers.Contains(number))
+                {
+                    return false;
+                }
                 postedNumbers.Add(number);
+                sum += number;
+                count++;
+
+                return true;
             }
         }
 
-        public List<int> GetPostedNumbers()
+        public double? GetAverage()
         {
-            lock (lockObject)
+            lock ( lockObject)
             {
-                return new List<int>(postedNumbers);
+                if (count == 0) return null;
+
+                double average = sum / count;
+                return average;
             }
         }
     }

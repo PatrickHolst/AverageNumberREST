@@ -19,42 +19,30 @@
                 return BadRequest();
             }
 
-            int number = input.Number; // extracting the model
+            int number = input.Number;
 
-            if (numberList.GetPostedNumbers().Contains(number))
+            if (numberList.AddNumber(number))
+            {
+                return Ok($"Number {number} added");
+            }
+            else
             {
                 return Conflict($"The number {number} already exists");
             }
-
-            numberList.AddNumber(number);
-            return Ok($"Number {number} added");
-        }
-
-        [HttpGet("GET-numbers-list")]
-        public IActionResult GetAddedNumbers()
-        {
-            List<int> postedNumbers = numberList.GetPostedNumbers();
-            if (postedNumbers.Count == 0)
-            {
-                return NotFound($"List is empty");
-            }
-            return Ok(postedNumbers);
         }
 
         [HttpGet("GET-average")]
         public IActionResult GetAverage()
         {
-            List<int> postedNumbers = numberList.GetPostedNumbers();
-
-            if (postedNumbers.Count == 0)
+            double? average = numberList.GetAverage();
+            if (average.HasValue)
             {
-                return NotFound($"No numbers to calculate");
+                return Ok(new { average = average.Value.ToString("F4") });
             }
-
-            double average = postedNumbers.Average();
-            string formattedAverage = average.ToString("F4"); // four decimal places
-
-            return Ok(new { average = formattedAverage });
+            else
+            {
+                return NotFound("No numbers to calculate average");
+            }
         }
     }
 }
